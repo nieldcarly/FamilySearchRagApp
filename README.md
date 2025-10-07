@@ -12,7 +12,7 @@ my-node-api
 │   ├── index.js        # App entry (serves frontend + mounts routes)
 │   └── routes
 │       └── api.js      # API endpoints: /hello, /upload, /ask
-# FamilySearchRagApp
+
 
 This README documents how to run each part locally and how they interact.
 

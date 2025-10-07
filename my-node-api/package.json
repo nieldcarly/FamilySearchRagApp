@@ -1,0 +1,22 @@
+{
+  "name": "my-node-api",
+  "version": "1.0.0",
+  "description": "A simple Node.js API using Express",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^4.21.2",
+    "gedcom": "^3.0.4",
+    "multer": "^2.0.1",
+    "openai": "^5.1.1",
+    "parse-gedcom": "^2.0.1"
+  },
+  "author": "",
+  "license": "ISC",
+  "keywords": [],
+  "type": "commonjs"
+}

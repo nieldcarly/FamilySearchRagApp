@@ -1,0 +1,43 @@
+.env
+.env.local
+.env.*.local
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# build / coverage
+dist/
+build/
+out/
+coverage/
+.nyc_output/
+.next/
+
+# caches
+.cache
+.parcel-cache
+.pnp.*
+.eslintcache
+
+# runtime uploads / generated files
+my-node-api/uploads/
+my-js-front-end/dist/
+uploads/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.code-workspace
+
+# keys / secrets
+*.pem
+*.key

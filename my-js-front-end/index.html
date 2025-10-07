@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Genealogy RAG App</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f8f9fa;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 500px;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      padding: 32px 24px 24px 24px;
+    }
+    h1, h2 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    form, .ask-section {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    input[type="file"], input[type="text"] {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+    button {
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 0;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    #response {
+      background: #f1f3f6;
+      border-radius: 5px;
+      padding: 16px;
+      min-height: 40px;
+      color: #222;
+      margin-top: 8px;
+      white-space: pre-line;
+    }
+    .footer {
+      text-align: center;
+      color: #aaa;
+      margin-top: 40px;
+      font-size: 0.95em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Genealogy RAG App</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+      <label for="gedcom"><strong>Upload GEDCOM File:</strong></label>
+      <input type="file" name="gedcom" id="gedcom" accept=".ged" required />
+      <button type="submit">Upload</button>
+    </form>
+
+    <div class="ask-section">
+      <h2>Ask a Question</h2>
+      <input type="text" id="question" placeholder="e.g. Who immigrated to the US?" />
+      <button type="button" onclick="ask()">Ask</button>
+      <div id="response"></div>
+    </div>
+  </div>
+  <div class="footer">
+    &copy; 2025 Genealogy RAG App
+  </div>
+  <script>
+    document.getElementById("uploadForm").onsubmit = async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      try {
+        await fetch("/upload", {
+          method: "POST",
+          body: formData
+        });
+        alert("GEDCOM file uploaded and parsed!");
+      } catch (err) {
+        alert("Upload failed.");
+      }
+    };
+
+    async function ask() {
+      const question = document.getElementById("question").value;
+      const responseDiv = document.getElementById("response");
+      responseDiv.innerText = "Thinking...";
+      try {
+        const res = await fetch("/ask", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ question }),
+        });
+        const data = await res.json();
+        responseDiv.innerText = data.answer || "No answer generated.";
+      } catch (err) {
+        responseDiv.innerText = "Error getting answer.";
+      }
+    }
+  </script>
+</body>
+</html>
